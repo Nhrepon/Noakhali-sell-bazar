@@ -1,0 +1,697 @@
+{
+	"info": {
+		"_postman_id": "cc1e46ef-d742-4221-9f5d-f424945aa2ce",
+		"name": "noakhali-sell-bazar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32568510",
+		"_collection_link": "https://www.postman.com/nh-repon-team/workspace/mern/collection/32568510-cc1e46ef-d742-4221-9f5d-f424945aa2ce?action=share&source=collection_link&creator=32568510"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "userRegistration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"nurhossainrepon7248@gmail.com\",\r\n    \"firstName\": \"MD. Nur Hoosain \",\r\n    \"lastName\": \"Repon\",\r\n    \"userName\":\"nhrepon\",\r\n    \"age\": \"30\",\r\n    \"gender\": \"Male\",\r\n    \"mobile\": \"+8801829938427\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/userRegistration",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"userRegistration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userOtp",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"nurhossainrepon7248@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/userOtp",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"userOtp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verifyLogin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"nurhossainrepon7248@gmail.com\",\r\n    \"otp\": \"498492\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"verifyLogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userLogout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/userLogout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"userLogout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userProfileRead",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/userProfileRead",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"userProfileRead"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "productBrandList",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productBrandList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productBrandList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productCategoryList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/productCategoryList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productCategoryList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productSliderList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/productSliderList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productSliderList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productListByBrand",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/productListByBrand/64f8751a502e1b80556da142",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productListByBrand",
+								"64f8751a502e1b80556da142"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productListByCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/productListByCategory/64f875ed502e1b80556da14d",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productListByCategory",
+								"64f875ed502e1b80556da14d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productListBySimilar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/productListBySimilar/64f875ed502e1b80556da14d",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productListBySimilar",
+								"64f875ed502e1b80556da14d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productListByKeyword",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productListByKeyword/apple",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productListByKeyword",
+								"apple"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productListByRemark",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productListByRemark/new",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productListByRemark",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productDetails",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productDetails/651da44d1ce672f6c8b7961d",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productDetails",
+								"651da44d1ce672f6c8b7961d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productReviewList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/productReviewList/651da44d1ce672f6c8b7961d",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productReviewList",
+								"651da44d1ce672f6c8b7961d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productListByFilter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productListByFilter",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productListByFilter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createReview",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"651da44d1ce672f6c8b7961d\",\r\n    \"description\":\"This is description ... abfasfdf adsfasd asdfa adlfjasd f asdlfja df a; faj;dslfj adf\",\r\n    \"rating\":\"5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/createReview",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"createReview"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wish",
+			"item": [
+				{
+					"name": "saveWishList",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"651da44d1ce672f6c8b7961d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/saveWishList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"saveWishList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "wishList",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/wishList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"wishList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeWishList",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"651da44d1ce672f6c8b7961d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/removeWishList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"removeWishList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart List",
+			"item": [
+				{
+					"name": "saveCartList",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"651da44d1ce672f6c8b7961d\",\r\n\t\t\"quantity\":\"10\",\r\n\t\t\"color\":\"Green\",\r\n\t\t\"size\":\"XXL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/saveCartList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"saveCartList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CartList",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"651da44d1ce672f6c8b7961d\",\r\n\t\t\"quantity\":\"10\",\r\n\t\t\"color\":\"Green\",\r\n\t\t\"size\":\"XXL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/CartList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"CartList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCartList",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"quantity\":\"1\",\r\n\t\"color\":\"Red\",\r\n\t\"size\":\"L\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/updateCartList/66603fea730ddbeaf4f79145",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"updateCartList",
+								"66603fea730ddbeaf4f79145"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCartList",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"_id\":\"66603feb730ddbeaf4f79147\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/deleteCartList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"deleteCartList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:1000/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51cmhvc3NhaW5yZXBvbjcyNDhAZ21haWwuY29tIiwidXNlcklkIjoiNjY0MDQzYWFlNTEzNDhiNWFhNmE0YjY2IiwiaWF0IjoxNzE1NTIzODA2LCJleHAiOjE3MTU3ODMwMDZ9.6VUhu3sNWDg8DR8I6T4-AzJCoW1_KYVW5sceHdcUsdg",
+			"type": "string"
+		}
+	]
+}

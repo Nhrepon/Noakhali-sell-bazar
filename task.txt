@@ -1,0 +1,54 @@
+client:
+npm install react-bootstrap bootstrap
+npm i bootstrap-icons
+npm i react-router-dom
+npm i react-router
+npm i axios
+npm i cogo-toast
+npm i moment
+npm i react-icons
+npm i react-toastify
+npm i react-sweetalert2
+npm i react-bootstrap-sweetalert
+npm i cleave.js
+npm i recharts
+npm i localforage
+npm i react-code-input
+npm i read-excel-file
+npm i export-from-json
+npm i html-to-image
+npm i react-tooltip
+npm i react-window
+//npm i react-hot-toast
+//npm i react-export-excel
+
+
+npm i react-bootstrap bootstrap bootstrap-icons react-router-dom react-router axios recharts localforage react-hot-toast
+
+
+
+
+
+
+
+
+
+server:
+npm i body-parser
+npm i cors
+npm i dotenv
+npm i express-mongo-sanitize
+npm i express-rate-limit
+npm i helmet
+npm i hpp
+npm i jsonwebtoken
+npm i nodemon
+npm i xss-clean
+npm i mongoose
+npm i my-sql
+
+
+npm i mongoose cors dotenv express-mongo-sanitize express-rate-limit helmet hpp jsonwebtoken nodemon xss-clean
+
+
+
