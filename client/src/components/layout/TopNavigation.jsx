@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ProductStore from "../../store/ProductStore";
 import UserStore from "../../store/UserStore";
 import UserSubmitButton from "../user/UserSubmitButton";
+import CartStore from "../../store/CartStore";
 
 
 const TopNavigation = () => {
   
   const { searchByKeyword, setSearchKeyword } = ProductStore();
   const { isLogin , userLogout} = UserStore();
+  const { cartCount , getCartList} = CartStore();
   const navigate = useNavigate();
 
   const handleLogout=async()=>{
@@ -17,6 +19,14 @@ const TopNavigation = () => {
     localStorage.clear();
     navigate("/");
   }
+
+  useEffect(()=>{
+    (async()=>{
+      if (isLogin()) {
+        await getCartList();
+      }
+    })()
+  }, []);
 
   return (
     <>
@@ -159,6 +169,10 @@ const TopNavigation = () => {
                 type="button"
                 className="btn ms-2 btn-light position-relative">
                 <i className="bi text-dark bi-bag"></i>
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                  {cartCount}
+                  <span className="visually-hidden">unread message</span>
+                </span>
               </Link>
               <Link
                 to="/wish"

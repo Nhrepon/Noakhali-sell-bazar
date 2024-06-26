@@ -52,3 +52,18 @@ npm i mongoose cors dotenv express-mongo-sanitize express-rate-limit helmet hpp 
 
 
 
+/***** 
+git init
+git add .
+git commit -m "Initial Commit"
+git branch -m "main"
+git remote add origin https://github.com/Nhrepon/Noakhali-sell-bazar.git
+git push -u origin main
+
+
+update:
+gid add .
+git commit -m ""
+git push
+git push --force origin
+*****/

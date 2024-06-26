@@ -10,9 +10,9 @@ const saveCartListService = async (req) => {
         const reqBody=req.body;
         reqBody.userId=userId;
         const data=await CartModel.create(reqBody);
-        return {status:"Success", data:data};
+        return {status:"success", data:data};
     } catch (error) {
-        return {status:"Failed", message:error};
+        return {status:"failed", message:error};
     }
 }
 
@@ -76,9 +76,9 @@ const cartListService = async (req) => {
             projectionStage
 
         ]);
-        return {status:"Success", data:data};
+        return {status:"success", data:data};
     } catch (error) {
-        return {status:"Failed", message:error};
+        return {status:"failed", message:error};
     }
 }
 
@@ -93,9 +93,9 @@ const updateCartListService = async (req) => {
         const cartId=req.params.cartId;
         const reqBody=req.body;
         const data=await CartModel.updateOne({_id:cartId, userId:userId}, reqBody);
-        return {status:"Success", data:data};
+        return {status:"success", data:data};
     } catch (error) {
-        return {status:"Failed", message:error};
+        return {status:"failed", message:error};
     }
 }
 
@@ -109,9 +109,9 @@ const deleteCartListService = async (req) => {
         const reqBody=req.body;
         reqBody.userId=userId;
         const data=await CartModel.deleteOne(reqBody);
-        return {status:"Success", data:data};
+        return {status:"success", data:data};
     } catch (error) {
-        return {status:"Failed", message:error};
+        return {status:"failed", message:error};
     }
 }
 

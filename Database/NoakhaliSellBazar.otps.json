@@ -1,0 +1,77 @@
+[{
+  "_id": {
+    "$oid": "6640461be51348b5aa6cad9f"
+  },
+  "email": "nurhossainrepon7248@gmail.com",
+  "createdAt": {
+    "$date": "2024-05-12T04:31:20.769Z"
+  },
+  "otp": "187871",
+  "updatedAt": {
+    "$date": "2024-06-05T09:21:02.181Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "664046e7e51348b5aa6d805f"
+  },
+  "email": "nurhossainrepon7248@gmail.com",
+  "userId": {
+    "$oid": "664043aae51348b5aa6a4b66"
+  },
+  "createdAt": {
+    "$date": "2024-05-12T04:34:45.321Z"
+  },
+  "otp": "424000",
+  "updatedAt": {
+    "$date": "2024-05-12T14:23:26.884Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66602e543262205680d454f4"
+  },
+  "email": "nurhossainrepon7248@gmail.com",
+  "userId": {
+    "$oid": "6640c3c91cfec06a42668c20"
+  },
+  "createdAt": {
+    "$date": "2024-06-05T09:22:27.616Z"
+  },
+  "otp": "164051",
+  "updatedAt": {
+    "$date": "2024-06-22T10:44:35.958Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6676f1523f0c2f64d18d1b95"
+  },
+  "email": "cphouse2023@gmail.com",
+  "userId": {
+    "$oid": "6676f1525e71111e45e86bf1"
+  },
+  "createdAt": {
+    "$date": "2024-06-22T15:44:18.264Z"
+  },
+  "otp": "970420",
+  "updatedAt": {
+    "$date": "2024-06-22T15:45:41.088Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "667705083f0c2f64d1a1e594"
+  },
+  "userId": {
+    "$oid": "66770507caf768586b0225e4"
+  },
+  "email": "sharminrepon27@gmail.com",
+  "createdAt": {
+    "$date": "2024-06-22T17:08:23.782Z"
+  },
+  "otp": " ",
+  "updatedAt": {
+    "$date": "2024-06-22T17:08:45.243Z"
+  }
+}]

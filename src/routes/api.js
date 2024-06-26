@@ -45,7 +45,7 @@ router.get("/wishList", AuthMiddleware, WishListController.wishList);
 router.get("/removeWishList",AuthMiddleware,WishListController.removeWishList);
 
 /// Cart
-router.get("/saveCartList", AuthMiddleware, CartListController.saveCartList);
+router.post("/saveCartList", AuthMiddleware, CartListController.saveCartList);
 router.get("/cartList", AuthMiddleware, CartListController.cartList);
 router.get("/updateCartList/:cartId",AuthMiddleware,CartListController.updateCartList);
 router.get("/deleteCartList", AuthMiddleware,CartListController.deleteCartList);

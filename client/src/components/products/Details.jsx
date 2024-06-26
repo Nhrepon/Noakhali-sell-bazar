@@ -4,9 +4,13 @@ import DetailSkeleton from "../../skeleton/DetailSkeleton";
 import ProductImage from "../../components/products/ProductImage";
 import parse from "html-react-parser";
 import ReviewComponent from "../../components/products/ReviewComponent";
+import CartSubmitButton from "../cart/CartSubmitButton";
+import CartStore from "../../store/CartStore";
+import toast from "react-hot-toast";
 
 const Details = () => {
   const { productDetails } = ProductStore();
+  const { cartSave, cartForm, getCartList, cartFormOnChange } = CartStore();
 
   const [quantity, setQuantity] = useState(1);
   const incrementQty = () => {
@@ -16,6 +20,16 @@ const Details = () => {
     if (quantity > 1) {
       setQuantity((quantity) => quantity - 1);
     }
+  };
+
+  const addCart = async (productId) => {
+    const res = await cartSave(cartForm, productId, quantity);
+    if (res.status==="success") {
+      toast.success("Item added to cart ");
+      await getCartList();
+    }
+      
+    
   };
 
   if (productDetails === null) {
@@ -57,7 +71,7 @@ const Details = () => {
               <div className="row">
                 <div className="col-4 p-2">
                   <label className="bodySmal">Size</label>
-                  <select className="form-control my-2 form-select">
+                  <select value={cartForm.size} onChange={(e)=>{cartFormOnChange('size',e.target.value)}} className="form-control my-2 form-select">
                     <option value="">Size</option>
                     {productDetails[0]["details"]["size"]
                       .split(",")
@@ -68,7 +82,7 @@ const Details = () => {
                 </div>
                 <div className="col-4 p-2">
                   <label className="bodySmal">Color</label>
-                  <select className="form-control my-2 form-select">
+                  <select value={cartForm.color} onChange={(e)=>{cartFormOnChange('color',e.target.value)}}  className="form-control my-2 form-select">
                     <option value="">Color</option>
                     {productDetails[0]["details"]["color"]
                       .split(",")
@@ -82,8 +96,7 @@ const Details = () => {
                   <div className="input-group my-2">
                     <button
                       onClick={decrementQty}
-                      className="btn btn-outline-secondary"
-                    >
+                      className="btn btn-outline-secondary">
                       -
                     </button>
                     <input
@@ -94,14 +107,18 @@ const Details = () => {
                     />
                     <button
                       onClick={incrementQty}
-                      className="btn btn-outline-secondary"
-                    >
+                      className="btn btn-outline-secondary">
                       +
                     </button>
                   </div>
                 </div>
                 <div className="col-4 p-2">
-                  <button className="btn w-100 btn-success">Add to Cart</button>
+                  <CartSubmitButton
+                    onClick={async () => {
+                      await addCart(productDetails[0]["_id"])
+                    }}
+                    className="btn w-100 btn-success"
+                    text="Add to Cart"></CartSubmitButton>
                 </div>
                 <div className="col-4 p-2">
                   <button className="btn w-100 btn-success">Add to Wish</button>
@@ -120,8 +137,7 @@ const Details = () => {
                   type="button"
                   role="tab"
                   aria-controls="Special-tab-pane"
-                  aria-selected="true"
-                >
+                  aria-selected="true">
                   Specifications
                 </button>
               </li>
@@ -134,8 +150,7 @@ const Details = () => {
                   type="button"
                   role="tab"
                   aria-controls="Review-tab-pane"
-                  aria-selected="false"
-                >
+                  aria-selected="false">
                   Review
                 </button>
               </li>
@@ -146,8 +161,7 @@ const Details = () => {
                 id="Special-tab-pane"
                 role="tabpanel"
                 aria-labelled-by="Special-tab"
-                tabIndex="0"
-              >
+                tabIndex="0">
                 {parse(productDetails[0]["details"]["description"])}
               </div>
               <div
@@ -155,8 +169,7 @@ const Details = () => {
                 id="Review-tab-pane"
                 role="tabpanel"
                 aria-labelledby="Review-tab"
-                tabIndex="0"
-              >
+                tabIndex="0">
                 <ReviewComponent />
               </div>
             </div>

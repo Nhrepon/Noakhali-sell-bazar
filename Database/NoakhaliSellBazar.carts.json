@@ -1,0 +1,20 @@
+[{
+  "_id": {
+    "$oid": "66603fea730ddbeaf4f79145"
+  },
+  "productId": {
+    "$oid": "651da44d1ce672f6c8b7961d"
+  },
+  "userId": {
+    "$oid": "6640c3c91cfec06a42668c20"
+  },
+  "quantity": "1",
+  "color": "Red",
+  "size": "L",
+  "createdAt": {
+    "$date": "2024-06-05T10:37:30.794Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-05T10:58:48.720Z"
+  }
+}]
