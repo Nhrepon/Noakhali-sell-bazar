@@ -5,7 +5,7 @@ const InvoiceModel = require("../model/InvoiceModel");
 const InvoiceProductModel=require("../model/InvoiceProductModel");
 const PaymentSettingModel=require("../model/PaymentSettingModel");
 const ObjectId=mongoose.Types.ObjectId;
-const FormData=require('form-data');
+const FormData = require('form-data');
 const axios=require('axios');
 
 
@@ -116,59 +116,60 @@ const createInvoiceService = async (req) => {
 
 
         // Step 06: Remove Carts
-        //await CartModel.deleteMany({userId:userId});
+        await CartModel.deleteMany({userId:userId});
 
 
 
         // Step 07: Prepare SSL Payment
         const paymentSetting=await PaymentSettingModel.find();
-        let form=new FormData();
-    form.append('store_id',paymentSetting['storeId'])
-    form.append('store_passwd',paymentSetting['storePassword'])
-    form.append('total_amount',payable.toString())
-    form.append('currency',paymentSetting['currency'])
-    form.append('tran_id',transactionId)
-
-    form.append('success_url',`${paymentSetting['successUrl']}/${transactionId}`)
-    form.append('fail_url',`${paymentSetting['failUrl']}/${transactionId}`)
-    form.append('cancel_url',`${paymentSetting['cancelUrl']}/${transactionId}`)
-    form.append('ipn_url',`${paymentSetting['ipnUrl']}/${transactionId}`)
-
-    form.append('cus_name',profile['userName'])
-    form.append('cus_email',userEmail)
-    form.append('cus_add1',profile['userAddress'])
-    form.append('cus_add2',profile['useAddress'])
-    form.append('cus_city',profile['userCity'])
-    form.append('cus_state',profile['userState'])
-    form.append('cus_postcode',profile['userPostCode'])
-    form.append('cus_country',profile['userCountry'])
-    form.append('cus_phone',profile['userMobile'])
-    form.append('cus_fax',profile['userMobile'])
-
-    form.append('shipping_method',"YES")
-    form.append('ship_name',profile['userName'])
-    form.append('ship_add1',profile['shippingAddress'])
-    form.append('ship_add2',profile['shippingAddress'])
-    form.append('ship_city',profile['shippingCity'])
-    form.append('ship_state',profile['shippingState'])
-    form.append('ship_country',profile['shippingCountry'])
-    form.append('ship_postcode',profile['shippingPostCode'])
-
-    form.append('product_name','According Invoice')
-    form.append('product_category','According Invoice')
-    form.append('product_profile','According Invoice')
-    form.append('product_amount','According Invoice')
-
-    let SSLRes=await axios.post(paymentSetting['initUrl'],form);
-
-    return {status:"success",data:SSLRes.data}
 
 
+        const form = new FormData();
+        form.append('store_id',paymentSetting[0]['store_id']);
+        form.append('store_passwd',paymentSetting[0]['store_passwd']);
+        form.append('total_amount',payable.toString());
+        form.append('currency',paymentSetting[0]['currency']);
+        form.append('tran_id',transactionId);
 
+        form.append('success_url',`${paymentSetting[0]['success_url']}/${transactionId}`);
+        form.append('fail_url',`${paymentSetting[0]['fail_url']}/${transactionId}`);
+        form.append('cancel_url',`${paymentSetting[0]['cancel_url']}/${transactionId}`);
+        form.append('ipn_url',`${paymentSetting[0]['ipn_url']}/${transactionId}`);
+
+        form.append('cus_name',profile['userName']);
+        form.append('cus_email',userEmail);
+        form.append('cus_add1',profile['userAddress']);
+        form.append('cus_city',profile['userCity']);
+        form.append('cus_state',profile['userState']);
+        form.append('cus_postcode',profile['userPostCode']);
+        form.append('cus_country',profile['userCountry']);
+        form.append('cus_phone',profile['userMobile']);
+
+        form.append('shipping_method',"YES")
+        form.append('ship_name',profile['userName'])
+        form.append('ship_add1',profile['shippingAddress'])
+        form.append('ship_city',profile['shippingCity'])
+        form.append('ship_state',profile['shippingState'])
+        form.append('ship_country',profile['shippingCountry'])
+        form.append('ship_postcode',profile['shippingPostCode'])
+
+        form.append('product_name','According Invoice')
+        form.append('product_category','According Invoice')
+        form.append('product_profile','According Invoice')
+        form.append('product_amount','According Invoice')
+ 
+
+
+        let SSLRes=await axios.post(paymentSetting[0]['init_url'], form);
+
+        return {status:"success",data:SSLRes.data} 
 
 
 
-        //return {status:"success", data:createInvoice, message: paymentSetting};
+
+
+
+        //return {status:"success", data:createInvoice, message: paymentSetting, form: form};
 
     } catch (error) {
         return {status:"failed", message:error};
@@ -181,8 +182,8 @@ const createInvoiceService = async (req) => {
 
 const paymentSuccessService=async(req)=>{
     try {
-        const transactionId=req.params.trxID;
-        await InvoiceModel.updateOne({transactionId:transactionId}, {paymentStatus:"success"});
+        const transactionId=req.params.txnId;
+        await InvoiceModel.updateOne({transactionId:transactionId}, {$set:{paymentStatus:"success"}});
         return {status:"success"}
     } catch (error) {
         return {status:"failed", message:error};
@@ -195,7 +196,7 @@ const paymentSuccessService=async(req)=>{
 
 const paymentFailService=async(req)=>{
     try {
-        const transactionId=req.params.trxID;
+        const transactionId=req.params.txnId;
         await InvoiceModel.updateOne({transactionId:transactionId}, {paymentStatus:"Fail"});
         return {status:"Fail"}
     } catch (error) {
@@ -210,7 +211,7 @@ const paymentFailService=async(req)=>{
 
 const paymentCancelService=async(req)=>{
     try {
-        const transactionId=req.params.trxID;
+        const transactionId=req.params.txnId;
         await InvoiceModel.updateOne({transactionId:transactionId}, {paymentStatus:"Cancel"});
         return {status:"Cancel"}
     } catch (error) {
@@ -225,7 +226,7 @@ const paymentCancelService=async(req)=>{
 
 const paymentIPNService=async(req)=>{
     try {
-        const transactionId=req.params.trxID;
+        const transactionId=req.params.txnId;
         const status=req.body['status'];
         await InvoiceModel.updateOne({transactionId:transactionId}, {paymentStatus:status});
         return {status:"success"}
@@ -240,11 +241,11 @@ const paymentIPNService=async(req)=>{
 
 const invoiceListService=async(req)=>{
     try {
-        const userId=ObjectId(req.headers.userId);
+        const userId= new ObjectId(req.headers.userId);
         const data=await InvoiceModel.find({userId:userId});
-        return {status:"success", data:data};
+        return {status:"success", data:data, id: userId};
     } catch (error) {
-        return {status:"Failed", message:error};
+        return {status:"failed", message:error};
     }
 }
 
@@ -254,8 +255,8 @@ const invoiceListService=async(req)=>{
 
 const invoiceProductListService = async (req)=>{
     try {
-        const userId=ObjectId(req.headers.userId);
-        const invoiceId=ObjectId(req.params.invoiceId);
+        const userId=new ObjectId(req.headers.userId);
+        const invoiceId=new ObjectId(req.params.invoiceId);
         const matchStage={$match:{userId:userId, invoiceId:invoiceId}};
         const joinStageWithProduct={$lookup:{
             from:"products",

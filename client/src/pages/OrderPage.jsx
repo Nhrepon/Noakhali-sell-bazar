@@ -1,11 +1,14 @@
 import React from 'react';
 import InvoiceList from '../components/invoice/InvoiceList';
+import MasterLayout from '../layouts/MasterLayout';
 
 const OrderPage = () => {
     return (
-        <div>
-            <InvoiceList/>
-        </div>
+        <MasterLayout>
+            <div className="container">
+                <InvoiceList/>
+            </div>
+        </MasterLayout>
     );
 };
 

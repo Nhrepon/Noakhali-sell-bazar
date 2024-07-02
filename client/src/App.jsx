@@ -20,6 +20,8 @@ import OtpPage from './pages/OtpPage';
 import UserStore from './store/UserStore';
 import NotFound from './pages/NotFound';
 import ProductListPage from './pages/ProductListPage';
+import OrderPage from './pages/OrderPage';
+import InvoicePage from './pages/InvoicePage';
 
 const App = () => {
 
@@ -52,7 +54,10 @@ const App = () => {
 
         <Route path="/profile" element={<ProfilePage/>} />
         <Route path="/cart" element={<CartPage/>} />
-        <Route path="/wish" element={<WishPage/>} />    
+        <Route path="/wish" element={<WishPage/>} /> 
+
+        <Route path="/orders" element={<OrderPage/>} />   
+        <Route path="/invoice/:id" element={<InvoicePage/>} />   
             
         <Route path="*" element={<NotFound/>} />
         

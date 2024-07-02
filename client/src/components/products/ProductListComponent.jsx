@@ -36,7 +36,7 @@ const ProductListComponent = () => {
       brandList === null ? await getBrandList() : null;
       categoryList === null ? await getCategoryList() : null;
 
-      const isFilterEmpty = Object.values(filter).every(value => value==="");
+      const isFilterEmpty = Object.values(filter).every(value => value===" ");
       !isFilterEmpty ? await getProductListByFilter(filter) : null;
 
     })();

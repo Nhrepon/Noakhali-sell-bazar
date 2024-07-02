@@ -73,12 +73,35 @@ const CartStore = create((set)=>({
             set({isCartSubmit: true});
             const response=await axios.post('/api/createInvoice');
             set({isCartSubmit: false});
-            //window.location.href = response.data['data']['GatewayPageURL'];
+            window.location.href = response.data['data']['GatewayPageURL'];
             return response.data['status']==="success";
         } catch (error) {
             unauthorized(error.response.status);
         }
+    },
+
+
+    invoiceList:null,
+    getInvoiceList:async()=>{
+        try {
+            const response=await axios.get('/api/invoiceList');
+            set({invoiceList:response.data['data']});
+        } catch (error) {
+            unauthorized(error.response.status);
+        }
+    }, 
+
+    invoiceDetails:null, 
+    getInvoiceDetails: async (id) => {
+        try {
+            const response = await axios.get('/api/invoiceProductList/' + id);
+            set({ invoiceDetails: response.data['data'] });
+        } catch (error) {
+            unauthorized(error.response.status);
     }
+},
+
+
 
 
 
