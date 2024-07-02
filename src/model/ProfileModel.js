@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const databaseSchema=mongoose.Schema({
     userId:{type:mongoose.Schema.Types.ObjectId, required:true},
-    userName:{type:String, required:true},
+    userName:{type:String, required:true, unique:true},
     userMobile:{type:String, },
     userAddress:{type:String,},
     userCity:{type:String, },

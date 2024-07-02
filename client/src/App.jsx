@@ -19,16 +19,21 @@ import LoginPage from './pages/LoginPage';
 import OtpPage from './pages/OtpPage';
 import UserStore from './store/UserStore';
 import NotFound from './pages/NotFound';
+import ProductListPage from './pages/ProductListPage';
 
 const App = () => {
 
   const {isLogin}=UserStore();
 
-  return (
-    <BrowserRouter>
+
+  if(isLogin()){
+    return (
+    <>
+        <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/blog" element={<BlogPage/>} />
+        <Route path="/products" element={<ProductListPage/>} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/refund" element={<RefundPage />} />
         <Route path="/terms" element={<TermsPage />} />
@@ -45,18 +50,51 @@ const App = () => {
         <Route path="/listByKeyword/:keyword" element={<ProductByKeyword/>} />
         <Route path="/details/:productId" element={<ProductDetails/>} />
 
-        <>
-            <Route path="/profile" element={<ProfilePage/>} />
-            <Route path="/cart" element={<CartPage/>} />
-            <Route path="/wish" element={<WishPage/>} />
-            </>
+        <Route path="/profile" element={<ProfilePage/>} />
+        <Route path="/cart" element={<CartPage/>} />
+        <Route path="/wish" element={<WishPage/>} />    
             
-            <Route path="*" element={<NotFound/>} />
+        <Route path="*" element={<NotFound/>} />
+        
+        
+      </Routes>
+    </BrowserRouter>
+    </>
+    ); 
+  }else{
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage/>} />
+        <Route path="/blog" element={<BlogPage/>} />
+        <Route path="/products" element={<ProductListPage/>} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/refund" element={<RefundPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/how-to-buy" element={<HowToBuyPage />} />
+        <Route path="/contact" element={<ContactPage/>} />
+        <Route path="/complain" element={<ComplainPage/>} />
+
+        
+        <Route path="/login" element={<LoginPage/>} />
+        <Route path="/otp" element={<OtpPage/>} />
+
+        <Route path="/listByBrand/:id" element={<ProductByBrand/>} />
+        <Route path="/listByCategory/:id" element={<ProductByCategory/>} />
+        <Route path="/listByKeyword/:keyword" element={<ProductByKeyword/>} />
+        <Route path="/details/:productId" element={<ProductDetails/>} />
+  
+            
+        <Route path="*" element={<NotFound/>} />
         
         
       </Routes>
     </BrowserRouter>
   );
+}
+
+
+
 };
 
 export default App;

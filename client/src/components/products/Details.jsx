@@ -7,10 +7,13 @@ import ReviewComponent from "../../components/products/ReviewComponent";
 import CartSubmitButton from "../cart/CartSubmitButton";
 import CartStore from "../../store/CartStore";
 import toast from "react-hot-toast";
+import WishSubmitButton from "../wish/WishSubmitButton";
+import WishStore from "../../store/WishStore";
 
 const Details = () => {
   const { productDetails } = ProductStore();
   const { cartSave, cartForm, getCartList, cartFormOnChange } = CartStore();
+  const { saveWishList, getWishList } = WishStore();
 
   const [quantity, setQuantity] = useState(1);
   const incrementQty = () => {
@@ -22,15 +25,24 @@ const Details = () => {
     }
   };
 
-  const addCart = async (productId) => {
-    const res = await cartSave(cartForm, productId, quantity);
-    if (res.status==="success") {
-      toast.success("Item added to cart ");
-      await getCartList();
-    }
+  const addToCart = async (productId) => {
+    if (cartForm.size === "") {
+      toast.error("Select Size First");
+    }else if (cartForm.color === "") {
+      toast.error("Select Color First");
       
-    
-  };
+    }else{
+    const response = await cartSave(cartForm, productId, quantity);
+    toast.success("Item added to cart ");
+    await getCartList();
+  }
+      };
+
+  const addToWish = async (productId) => {
+    const response = await saveWishList(productId);
+    toast.success("Item added to wish list ");
+    await getWishList();
+  };    
 
   if (productDetails === null) {
     return <DetailSkeleton />;
@@ -115,13 +127,13 @@ const Details = () => {
                 <div className="col-4 p-2">
                   <CartSubmitButton
                     onClick={async () => {
-                      await addCart(productDetails[0]["_id"])
+                      await addToCart(productDetails[0]["_id"])
                     }}
                     className="btn w-100 btn-success"
                     text="Add to Cart"></CartSubmitButton>
                 </div>
                 <div className="col-4 p-2">
-                  <button className="btn w-100 btn-success">Add to Wish</button>
+                  <WishSubmitButton onClick={async() => {await addToWish(productDetails[0]["_id"])}} className="btn w-100 btn-success" text="Add to Wish"></WishSubmitButton>
                 </div>
               </div>
             </div>

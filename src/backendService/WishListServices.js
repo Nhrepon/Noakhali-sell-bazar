@@ -13,10 +13,10 @@ const saveWishListServices=async (req)=>{
         const userId=new ObjectId(req.headers.userId);
         const reqBody=req.body;
         reqBody.userId=userId;
-        const data=await WishModel.updateOne(reqBody, {$set:reqBody}, {upsert:true});
+        const data= await WishModel.updateOne(reqBody, {$set:reqBody}, {upsert:true});
         return {status:"success", data:data};
     } catch (error) {
-        return {status:"Failed", message:error}
+        return {status:"failed", message:error}
     }
 }
 
@@ -77,7 +77,7 @@ try {
             ]
         )
 
-        return {status:"success", data:data, id:userId};
+        return {status:"success", data:data};
 } catch (error) {
     return {status:"Failed", message:error}
 }

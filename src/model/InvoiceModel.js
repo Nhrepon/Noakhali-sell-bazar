@@ -4,7 +4,7 @@ const databaseSchema=mongoose.Schema({
     userId:{type:mongoose.Schema.Types.ObjectId, required:true},
     payable:{type:String, required:true},
     customerDetails:{type:String, required:true},
-    shipingDetails:{type:String, required:true},
+    shippingDetails:{type:String, required:true},
 
     transactionId:{type:String, required:true},
     validationId:{type:String, required:true},

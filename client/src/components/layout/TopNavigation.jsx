@@ -4,6 +4,7 @@ import ProductStore from "../../store/ProductStore";
 import UserStore from "../../store/UserStore";
 import UserSubmitButton from "../user/UserSubmitButton";
 import CartStore from "../../store/CartStore";
+import WishStore from "../../store/WishStore";
 
 
 const TopNavigation = () => {
@@ -11,6 +12,7 @@ const TopNavigation = () => {
   const { searchByKeyword, setSearchKeyword } = ProductStore();
   const { isLogin , userLogout} = UserStore();
   const { cartCount , getCartList} = CartStore();
+  const { wishCount , getWishList} = WishStore();
   const navigate = useNavigate();
 
   const handleLogout=async()=>{
@@ -18,12 +20,13 @@ const TopNavigation = () => {
     sessionStorage.clear();
     localStorage.clear();
     navigate("/");
-  }
+  };
 
   useEffect(()=>{
     (async()=>{
       if (isLogin()) {
         await getCartList();
+        await getWishList();
       }
     })()
   }, []);
@@ -83,7 +86,11 @@ const TopNavigation = () => {
                   Home
                 </Link>
               </li>
-
+              <li class="nav-item">
+                <Link className="nav-link" to="/products">
+                  Products
+                </Link>
+              </li>
               <li class="nav-item">
                 <Link className="nav-link" to="/blog">
                   Blog
@@ -131,7 +138,7 @@ const TopNavigation = () => {
               </li>
             </ul>
 
-            <div className=" d-lg-flex">
+            <div className="d-md-flex gap-2">
               <div className="input-group">
                 <input
                   value={searchByKeyword}
@@ -177,8 +184,12 @@ const TopNavigation = () => {
               <Link
                 to="/wish"
                 type="button"
-                className="btn ms-2 btn-light d-flex">
+                className="btn ms-2 btn-light d-flex position-relative">
                 <i className="bi text-dark bi-heart"></i>
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                  {wishCount}
+                  <span className="visually-hidden">unread message</span>
+                </span>
               </Link>
 
               {isLogin() ? (

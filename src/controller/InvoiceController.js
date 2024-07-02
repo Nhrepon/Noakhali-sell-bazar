@@ -17,7 +17,7 @@ exports.createInvoice= async (req, res)=>{
 
 exports.paymentSuccess= async (req, res)=>{
     const result=await paymentSuccessService(req);
-    return res.json(result);
+    return res.redirect('/orders');
 }
 
 
@@ -26,7 +26,7 @@ exports.paymentSuccess= async (req, res)=>{
 
 exports.paymentFail=async (req, res)=>{
     const result=await paymentFailService(req);
-    return res.json(result);
+    return res.redirect('/orders');
 }
 
 
@@ -34,14 +34,14 @@ exports.paymentFail=async (req, res)=>{
 
 exports.paymentCancel=async (req, res)=>{
     const result=await paymentCancelService(req);
-    return res.json(result);
+    return res.redirect('/orders');
 }
 
 
 
 exports.paymentIPN=async (req, res)=>{
     const result=await paymentIPNService(req);
-    return res.json(result);
+    return res.redirect('/orders');
 }
 
 

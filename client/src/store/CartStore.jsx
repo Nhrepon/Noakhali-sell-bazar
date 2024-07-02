@@ -30,15 +30,55 @@ const CartStore = create((set)=>({
 
     cartList: null,
     cartCount: 0,
+    cartTotal:0,
+    vatTotal: 0,
+    payableTotal: 0,
     getCartList: async()=>{
         try {
             const response=await axios.get('/api/cartList');
             set({cartList:response.data['data']});
             set({cartCount:(response.data['data']).length});
+            let total=0;
+            let vat=0;
+            let payable=0;
+            response.data['data'].forEach((item, i) => {
+                if (item['product']['discount']===true) {
+                    total=total + parseFloat(item['quantity']) * parseFloat(item['product']['discountPrice']);
+                }else{
+                    total=total + parseFloat(item['quantity']) * parseFloat(item['product']['price']);
+                }
+            });
+            vat=total*0.05;
+            payable=total+vat;
+            set({cartTotal:total});
+            set({vatTotal:vat});
+            set({payableTotal:payable});
+
         } catch (error) {
             unauthorized(error.response.status);
         }
     },
+
+    removeCartList:async(cartId)=>{
+        try {
+            const response=await axios.post('/api/deleteCartList', {"_id":cartId});
+            return response.data['status']==="success";
+        } catch (error) {
+            unauthorized(error.response.status);
+        }
+    },
+
+    createInvoice:async()=>{
+        try {
+            set({isCartSubmit: true});
+            const response=await axios.post('/api/createInvoice');
+            set({isCartSubmit: false});
+            //window.location.href = response.data['data']['GatewayPageURL'];
+            return response.data['status']==="success";
+        } catch (error) {
+            unauthorized(error.response.status);
+        }
+    }
 
 
 

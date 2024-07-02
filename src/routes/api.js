@@ -40,25 +40,25 @@ router.post("/userProfileUpdate", AuthMiddleware, UserController.userProfileUpda
 router.post("/userProfileDelete/:id",AuthMiddleware,UserController.userProfileDelete);
 
 /// Wish
-router.get("/saveWishList", AuthMiddleware, WishListController.saveWishList);
+router.post("/saveWishList", AuthMiddleware, WishListController.saveWishList);
 router.get("/wishList", AuthMiddleware, WishListController.wishList);
-router.get("/removeWishList",AuthMiddleware,WishListController.removeWishList);
+router.post("/removeWishList",AuthMiddleware,WishListController.removeWishList);
 
 /// Cart
 router.post("/saveCartList", AuthMiddleware, CartListController.saveCartList);
 router.get("/cartList", AuthMiddleware, CartListController.cartList);
 router.get("/updateCartList/:cartId",AuthMiddleware,CartListController.updateCartList);
-router.get("/deleteCartList", AuthMiddleware,CartListController.deleteCartList);
+router.post("/deleteCartList", AuthMiddleware,CartListController.deleteCartList);
 
 /// Invoice
-router.post("/createInvoice", AuthMiddleware, InvoiceController.createInvoice);
+router.post("/createInvoice",AuthMiddleware, InvoiceController.createInvoice);
 router.get("/invoiceList", AuthMiddleware, InvoiceController.invoiceList);
 router.get("/invoiceProductList/:invoiceId",AuthMiddleware,InvoiceController.invoiceProductList);
 
-router.get( "/paymentSuccess/:txnId", AuthMiddleware, InvoiceController.paymentSuccess);
-router.get( "/paymentCancel/:txnId", AuthMiddleware, InvoiceController.paymentCancel);
-router.get("/paymentFail/:txnId", AuthMiddleware, InvoiceController.paymentFail);
-router.get("/paymentIPN/:txnId", AuthMiddleware, InvoiceController.paymentIPN);
+router.post( "/paymentSuccess/:txnId", AuthMiddleware, InvoiceController.paymentSuccess);
+router.post( "/paymentCancel/:txnId", AuthMiddleware, InvoiceController.paymentCancel);
+router.post("/paymentFail/:txnId", AuthMiddleware, InvoiceController.paymentFail);
+router.post("/paymentIPN/:txnId", AuthMiddleware, InvoiceController.paymentIPN);
 
 /// Features
 router.get("/featureList", FeaturesController.featureList);

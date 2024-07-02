@@ -11,7 +11,7 @@ const axios=require('axios');
 
 const createInvoiceService = async (req) => {
     try {
-        const userId=ObjectId(req.headers.userId);
+        const userId=new ObjectId(req.headers.userId);
         const userEmail=req.headers.email;
         
         // Step 01: Calculate Total Payable & Vat
@@ -21,7 +21,7 @@ const createInvoiceService = async (req) => {
             localField:"productId",
             foreignField:"_id",
             as:"product"
-        }}
+        }};
 
         const unwindProductStage={$unwind:"$product"};
         const CartProducts=await CartModel.aggregate(
@@ -32,39 +32,45 @@ const createInvoiceService = async (req) => {
             ]
         );
 
+        
+
+
+
+
+ 
         let totalAmount=0;
-        CartProducts.forEach((element)=>{
-            let price;
-            if(element['product'][discount]){
-                price=parseFloat(element['product']['discountPrice']);
+        CartProducts.map((item, i)=>{
+            let price=0;
+            if(item['product']['discount']===true){
+                price=parseFloat(item['product']['discountPrice']);
             }else{
-                price=parseFloat(element['product']['price']);
+                price=parseFloat(item['product']['price']);
             }
-            totalAmount+=parseFloat(element['quantity']*price);
+            totalAmount+=(parseFloat(item['quantity'])*price);
         });
         let vat=totalAmount*0.05;
         let payable=totalAmount+vat;
 
 
-        // Step 02: Prepare  Customer Details & Shipping Details
+       // Step 02: Prepare  Customer Details & Shipping Details
         const profile=await ProfileModel.findOne({userId:userId});
         const userDetails=`
-        Name: ${profile[0]['userName']},
+        Name: ${profile['userName']},
         Email: ${userEmail},
-        Mobile: ${profile[0]['userMobile']},
-        Address: ${profile[0]['userAddress']},
-        City: ${profile[0]['userCity']},
-        State: ${profile[0]['userState']},
-        PostCode: ${profile[0]['userPostCode']},
-        Country: ${profile[0]['userCountry']}
+        Mobile: ${profile['userMobile']},
+        Address: ${profile['userAddress']},
+        City: ${profile['userCity']},
+        State: ${profile['userState']},
+        PostCode: ${profile['userPostCode']},
+        Country: ${profile['userCountry']}
         `;
-        const shipingDetails=`
-        Name: ${profile[0]['userName']},
-        Address: ${profile[0]['shipingAddress']},
-        City: ${profile[0]['shipingCity']},
-        State: ${profile[0]['shipingState']},
-        PostCode: ${profile[0]['shipingPostCode']},
-        Country: ${profile[0]['shipingCountry']}
+        const shippingDetails=`
+        Name: ${profile['userName']},
+        Address: ${profile['shippingAddress']},
+        City: ${profile['shippingCity']},
+        State: ${profile['shippingState']},
+        PostCode: ${profile['shippingPostCode']},
+        Country: ${profile['shippingCountry']}
         `;
 
 
@@ -81,15 +87,16 @@ const createInvoiceService = async (req) => {
             userId:userId,
             payable:payable,
             customerDetails:userDetails,
-            shipingDetails:shipingDetails,
+            shippingDetails:shippingDetails,
             transactionId:transactionId,
             validationId:validationId,
             paymentStatus:paymentStatus,
             deliveryStatus:deliveryStatus,
             total:totalAmount,
             vat:vat
-        })
+        }); 
 
+       
 
         // Step 05: Create Invoice Product
         const invoiceId=createInvoice['_id'];
@@ -100,64 +107,71 @@ const createInvoiceService = async (req) => {
                 invoiceId:invoiceId,
                 quantity:element['quantity'],
                 price:element['product']['price']?element['product']['discountPrice']:element['product']['price'],
-                color:element['product']['color'],
-                size:element['product']['size']
+                color:element['color'],
+                size:element['size']
             });
-        });
+        }); 
 
+        
 
 
         // Step 06: Remove Carts
-        await CartModel.deleteMany({userId:userId});
+        //await CartModel.deleteMany({userId:userId});
 
 
 
         // Step 07: Prepare SSL Payment
-        const paymentSetting=await PaymentSettingModel.findOne();
-        const form=new FormData();
-        form.append('store_id', paymentSetting[0]['storeId']);
-        form.append('store_pass', paymentSetting[0]['storePassword']);
-        form.append('total_amount', payable.toString());
-        form.append('currency', paymentSetting[0]['currency']);
-        form.append('tran_id', transactionId);
+        const paymentSetting=await PaymentSettingModel.find();
+        let form=new FormData();
+    form.append('store_id',paymentSetting['storeId'])
+    form.append('store_passwd',paymentSetting['storePassword'])
+    form.append('total_amount',payable.toString())
+    form.append('currency',paymentSetting['currency'])
+    form.append('tran_id',transactionId)
 
-        form.append('success_url', `${paymentSetting[0]['successUrl']}/${transactionId}`);
-        form.append('fail_url', `${paymentSetting[0]['failUrl']}/${transactionId}`);
-        form.append('cancel_url', `${paymentSetting[0]['cancelUrl']}/${transactionId}`);
-        form.append('ipn_url', `${paymentSetting[0]['ipnUrl']}/${transactionId}`);
+    form.append('success_url',`${paymentSetting['successUrl']}/${transactionId}`)
+    form.append('fail_url',`${paymentSetting['failUrl']}/${transactionId}`)
+    form.append('cancel_url',`${paymentSetting['cancelUrl']}/${transactionId}`)
+    form.append('ipn_url',`${paymentSetting['ipnUrl']}/${transactionId}`)
 
-        form.append('customerName', profile[0]['userName']);
-        form.append('customerEmail', userEmail);
-        form.append('customerMobile', profile[0]['userMobile']);
-        form.append('customerAddress' , profile[0]['userAddress']);
-        form.append('customerCity' , profile[0]['userCity']);
-        form.append('customerState' , profile[0]['userState']);
-        form.append('customerPostCode' , profile[0]['userPostCode']);
-        form.append('customerCountry' , profile[0]['userCountry']);
+    form.append('cus_name',profile['userName'])
+    form.append('cus_email',userEmail)
+    form.append('cus_add1',profile['userAddress'])
+    form.append('cus_add2',profile['useAddress'])
+    form.append('cus_city',profile['userCity'])
+    form.append('cus_state',profile['userState'])
+    form.append('cus_postcode',profile['userPostCode'])
+    form.append('cus_country',profile['userCountry'])
+    form.append('cus_phone',profile['userMobile'])
+    form.append('cus_fax',profile['userMobile'])
 
-        form.append('shippingMethod', "Yes");
-        form.append('ShippingName', profile[0]['userName']);
-        form.append('shippingAddress' , profile[0]['shipingAddress']);
-        form.append('shippingCity' , profile[0]['shipingCity']);
-        form.append('shippingState' , profile[0]['shipingState']);
-        form.append('shippingPostCode' , profile[0]['shipingPostCode']);
-        form.append('shippingCountry' , profile[0]['shipingCountry']);
+    form.append('shipping_method',"YES")
+    form.append('ship_name',profile['userName'])
+    form.append('ship_add1',profile['shippingAddress'])
+    form.append('ship_add2',profile['shippingAddress'])
+    form.append('ship_city',profile['shippingCity'])
+    form.append('ship_state',profile['shippingState'])
+    form.append('ship_country',profile['shippingCountry'])
+    form.append('ship_postcode',profile['shippingPostCode'])
 
-        form.append('ProductName', "Product Name");
-        form.append('ProductCategory', "Product Category");
-        form.append('ProductProfile', "Product Profile");
-        form.append('ProductAmount', "Product Amount");
+    form.append('product_name','According Invoice')
+    form.append('product_category','According Invoice')
+    form.append('product_profile','According Invoice')
+    form.append('product_amount','According Invoice')
 
-        let SSLRes=await axios.post(paymentSetting[0]['initUrl'], form);
+    let SSLRes=await axios.post(paymentSetting['initUrl'],form);
 
-        return {status:"Success", message:SSLRes.data};
-
-
+    return {status:"success",data:SSLRes.data}
 
 
+
+
+
+
+        //return {status:"success", data:createInvoice, message: paymentSetting};
 
     } catch (error) {
-        return {status:"Failed", message:error};
+        return {status:"failed", message:error};
     }
 }
 
@@ -168,10 +182,10 @@ const createInvoiceService = async (req) => {
 const paymentSuccessService=async(req)=>{
     try {
         const transactionId=req.params.trxID;
-        await InvoiceModel.updateOne({transactionId:transactionId}, {paymentStatus:"Success"});
-        return {status:"Success"}
+        await InvoiceModel.updateOne({transactionId:transactionId}, {paymentStatus:"success"});
+        return {status:"success"}
     } catch (error) {
-        return {status:"Failed", message:error};
+        return {status:"failed", message:error};
     }
 }
 
@@ -228,7 +242,7 @@ const invoiceListService=async(req)=>{
     try {
         const userId=ObjectId(req.headers.userId);
         const data=await InvoiceModel.find({userId:userId});
-        return {status:"Success", data:data};
+        return {status:"success", data:data};
     } catch (error) {
         return {status:"Failed", message:error};
     }
@@ -258,7 +272,7 @@ const invoiceProductListService = async (req)=>{
             ]
         );
 
-        return {status:"Success", data:products};
+        return {status:"success", data:products};
     } catch (error) {
         return {status:"Failed", message:error};
     }
