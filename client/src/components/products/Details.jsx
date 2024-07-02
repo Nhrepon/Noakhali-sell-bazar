@@ -14,6 +14,7 @@ const Details = () => {
   const { productDetails } = ProductStore();
   const { cartSave, cartForm, getCartList, cartFormOnChange } = CartStore();
   const { saveWishList, getWishList } = WishStore();
+  const {isLogin}=UserStore();
 
   const [quantity, setQuantity] = useState(1);
   const incrementQty = () => {
@@ -127,7 +128,7 @@ const Details = () => {
                 <div className="col-4 p-2">
                   <CartSubmitButton
                     onClick={async () => {
-                      await addToCart(productDetails[0]["_id"])
+                      isLogin() ? await addToCart(productDetails[0]["_id"]) : toast.error("Please Login First");
                     }}
                     className="btn w-100 btn-success"
                     text="Add to Cart"></CartSubmitButton>
