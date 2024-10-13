@@ -8,7 +8,6 @@ const UserStore = create((set) => ({
     //Cookies.set('token','this is my cookie')
     const cookie = !!Cookies.get("token");
     //return !!Cookies.get("token");
-    console.log(cookie);
     return cookie;
   },
 

@@ -9,6 +9,7 @@ const FeaturesController = require("../controller/FeaturesController");
 const router = express.Router();
 
 const AuthMiddleware = require("../middleware/AuthMiddleware");
+const BlogPostController = require("../controller/BlogPostController");
 
 
 
@@ -66,5 +67,11 @@ router.get("/legalDetails/:type", FeaturesController.legalDetails);
 
 /// Create Review
 router.post("/createReview", AuthMiddleware, ProductController.createReview);
+
+
+
+// Blog post
+router.get('/blogPostList', BlogPostController.blogPostList);
+router.post('/blogPostCreate', AuthMiddleware, BlogPostController.blogPostCreate);
 
 module.exports = router;

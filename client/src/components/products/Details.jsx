@@ -9,6 +9,7 @@ import CartStore from "../../store/CartStore";
 import toast from "react-hot-toast";
 import WishSubmitButton from "../wish/WishSubmitButton";
 import WishStore from "../../store/WishStore";
+import UserStore from "../../store/UserStore";
 
 const Details = () => {
   const { productDetails } = ProductStore();

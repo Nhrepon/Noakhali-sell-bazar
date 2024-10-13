@@ -33,7 +33,7 @@ app.use(
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
-          imgSrc: ["'self'", "https://photo.teamrabbil.com", "https://ecom.teamrabbil.com", "data:"],
+          imgSrc: ["'self'", "https://purepng.com", "https://ecom.teamrabbil.com", "data:"],
         },
       },
     }),

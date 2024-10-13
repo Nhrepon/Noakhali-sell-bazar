@@ -16,7 +16,7 @@ const Footer = () => {
               </p>
               <img
                 className="w-100"
-                src="https://ecom.teamrabbil.com/assets/pay-ihRbdJoq.png"
+                src="/sslCommerz-images.png"
               />
             </div>
             <div className="col-md-3">
